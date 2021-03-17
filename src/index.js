@@ -1,7 +1,6 @@
-require('dotenv').config();
-const express = require('express');
+import {} from 'dotenv/config';
+import app from 'app';
 
-// Read environment from .env file
 const { PORT } = process.env;
 
 app.listen(PORT, () => {

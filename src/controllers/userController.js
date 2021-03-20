@@ -1,6 +1,6 @@
 import { User } from 'models';
 import gravatar from 'gravatar'
-
+import bcrypt from 'bcrypt'
 const createUser = async (req, res) => {
   try {
     const { email, password, name,} = req.body;
@@ -29,4 +29,21 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-export { createUser, getAllUsers };
+const login = async(req, res) =>{
+  try{
+    const { email, password,} = req.body;
+    const saltRounds = 10;
+    const passwordHashed = await bcrypt.hash(password, saltRounds);
+    const user = await User.findAll({
+      where: {
+        email: email,
+        password: passwordHashed
+      }
+    })
+    return res.send(user)
+  } catch (error) {
+    return res.status(500).send({error: 'Wrong information!'})
+  }
+}
+
+export { createUser, getAllUsers, login };

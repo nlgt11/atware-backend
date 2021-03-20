@@ -17,5 +17,12 @@ export default (sequelize, DataTypes) => {
     },
     {}
   );
+
+  Picture.associate = (models) => {
+    Picture.belongsTo(models.User, {
+      foreignKey: 'userId'
+    })
+  }
+
   return Picture;
 };

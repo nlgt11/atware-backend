@@ -1,8 +1,38 @@
-import { Picture, UserPicture,} from 'models';
+import { Picture, UserPicture} from 'models';
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import user from '../models/user';
 const {JWT_KEY} = process.env;
+
+const getAllPictures = async (req, res) => {
+  try {
+
+    const pictures = await Picture.findAll({});
+    console.log(pictures)
+    return res.send(pictures);
+  } catch (error) {
+    console.log(error)
+    return res.status(500).send({
+      error: 'Error hihi',
+    });
+  }
+};
+
+const getLikedPictures = async(req,res) =>{
+  try{
+    const pictures = await UserPicture.findAll({
+      where:{
+        userId: req.user.id
+      }
+    }).map(x=>x['pictureId'])
+    return res.send(pictures)
+  }
+  catch (error) {
+    console.log(error)
+    return res.status(500).send({
+      error: 'Error hihi',
+    });
+  }
+};
 const upload = async (req, res) => {
   try {
     console.log(req.body.url, req.user.id)
@@ -53,4 +83,4 @@ const like = async (req, res) => {
     });
   }
 };
-export {upload, like};
+export {getAllPictures, getLikedPictures, upload, like};

@@ -34,4 +34,15 @@ const login = async (req, res) => {
   }
 };
 
-export {login};
+const authenticate = async (req, res) => {
+  try {
+    const user = await User.findByPk(req.user.id);
+    return res.json(user);
+  } catch (error) {
+    return res.status(500).send({
+      error: 'Internal server error!',
+    });
+  }
+};
+
+export {login, authenticate};

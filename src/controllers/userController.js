@@ -1,13 +1,16 @@
 import { User } from 'models';
+import gravatar from 'gravatar'
 
 const createUser = async (req, res) => {
   try {
-    const { email, password, fullname } = req.body;
+    const { email, password, name,} = req.body;
     console.log(req.body);
+    const avt =   gravatar.url(email);
     const newUser = await User.create({
       email,
       password,
-      fullname,
+      name,
+     avatar_url: avt
     });
     return res.send(newUser);
   } catch (error) {

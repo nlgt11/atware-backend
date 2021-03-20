@@ -1,9 +1,9 @@
-import { Picture, UserPicture } from 'models';
+import { Picture, UserPicture, User } from 'models';
 import multer from 'multer';
 import path from 'path';
 
 const storage = multer.diskStorage({
-  destination: './public/',
+  destination: './src/images',
   filename: function (req, file, cb) {
     cb(null, 'IMAGE-' + Date.now() + path.extname(file.originalname));
   },
@@ -30,7 +30,13 @@ const uploadPic = async (req, res) => {
 
 const getAllPictures = async (req, res) => {
   try {
-    const pictures = await Picture.findAll({});
+    const pictures = await Picture.findAll({
+      include: [
+        {
+          model: User,
+        },
+      ],
+    });
     console.log(pictures);
     return res.send(pictures);
   } catch (error) {

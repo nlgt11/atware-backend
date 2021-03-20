@@ -23,13 +23,13 @@ const login = async (req, res) => {
     //     .send({ error: 'The user account is not activated yet' });
     // }
 
-    const payload = { user: { id: user.id, fullname: user.fullname } };
+    const payload = { user: { id: user.id, name: user.name } };
     const token = await jwt.sign(payload, JWT_KEY);
     return res.status(200).send({ token });
   } catch (error) {
     console.log(error)
     return res.status(500).send({
-      error: 'Login failed due to internal server error. Please try again!',
+      error: 'Auth failed',
     });
   }
 };

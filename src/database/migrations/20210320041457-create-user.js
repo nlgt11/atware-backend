@@ -16,13 +16,17 @@ module.exports = {
           allowNull: false,
           unique: true,
         },
-        fullname: {
+        name: {
           type: Sequelize.STRING,
           allowNull: false,
         },
         password: {
           type: Sequelize.STRING,
           allowNull: false,
+        },
+        avatar_url :{
+          type: Sequelize.STRING,
+          allowNull: true,
         },
         createdAt: {
           allowNull: false,
@@ -36,7 +40,7 @@ module.exports = {
       {}
     );
   },
-
+ 
   down: async (queryInterface, Sequelize) => {
     /**
      * Add reverting commands here.
@@ -44,5 +48,5 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-  },
+  }
 };

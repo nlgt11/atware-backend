@@ -10,7 +10,7 @@ export default (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
       },
-      fullname: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -18,6 +18,11 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      avatar_url :{
+        type: DataTypes.STRING,
+        allowNull: true,
+      }
+      
     },
     {
       hooks: {

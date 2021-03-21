@@ -26,4 +26,5 @@ router.post('/upload', auth, uploadPic);
 router.get('/like/', auth, getLikedPictures);
 router.put('/like/:id', auth, like);
 
+
 export default router;

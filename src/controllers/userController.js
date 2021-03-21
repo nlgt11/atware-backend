@@ -9,7 +9,7 @@ const createUser = async (req, res) => {
   try {
     const { email, password, name,} = req.body;
     console.log(req.body);
-    const avt =   faker.image.imageUrl();
+    const avt =   faker.image.avatar();
     const newUser = await User.create({
       email,
       password,
@@ -82,7 +82,7 @@ const infer = async(req,res)=>{
       data:{
       "path": "../atware-backend/src/images",
       "listImgNames": imgName,
-      "numberOfNeighbor": 4
+      "numberOfNeighbor": 2
         }
       })
 
@@ -104,6 +104,7 @@ const infer = async(req,res)=>{
 
     //   }}
     // })
+    console.log(listPicture)
     const listUserLiked = await UserPicture.findAll({
       include: [
         {
@@ -115,20 +116,18 @@ const infer = async(req,res)=>{
         pictureId: listPicture
       }
     }).map(x => x.User.toJSON());
-    const listUserUpload = await UserPicture.findAll({
+    const listUserUpload = await Picture.findAll({
       include: [
-        {
-          model: Picture,
-          where:{
-            id: listPicture
-          }
-        },
         {
           model: User,
         }
         
       ],
+      where:{
+        id: listPicture
+      }
     }).map(x => x.User.toJSON());
+    console.log(listUserUpload);
     return res.send(listUserLiked.concat(listUserUpload));
   }catch (error) {
     console.log(error);

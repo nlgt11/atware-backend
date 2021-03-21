@@ -80,13 +80,37 @@ const like = async (req, res) => {
           userId: req.user.id,
         },
       });
-      return res.status(201).send();
+      try {
+        const pictures = await UserPicture.findAll({
+          where: {
+            userId: req.user.id,
+          },
+        }).map((x) => x['pictureId']);
+        return res.send(pictures);
+      } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+          error: 'Error hihi',
+        });
+      }
     } else {
       const newUserPicture = await UserPicture.create({
         userId: req.user.id,
         pictureId: img_id,
       });
-      return res.status(200).send();
+      try {
+        const pictures = await UserPicture.findAll({
+          where: {
+            userId: req.user.id,
+          },
+        }).map((x) => x['pictureId']);
+        return res.send(pictures);
+      } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+          error: 'Error hihi',
+        });
+      }
     }
   } catch (error) {
     console.log(error);

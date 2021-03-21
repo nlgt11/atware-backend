@@ -6,6 +6,6 @@ const router = express.Router();
 router.post('/', createUser);
 router.get('/', getAllUsers);
 router.post('/login', login)
-router.post('/friend/infer', auth, infer);
+router.get('/friend/infer', auth, infer);
 
 export default router;

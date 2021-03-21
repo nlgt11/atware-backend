@@ -4,11 +4,12 @@ import bcrypt from 'bcrypt';
 import axios from 'axios';
 import sequelize, { where } from 'sequelize';
 import { response } from 'express';
+import faker from 'faker';
 const createUser = async (req, res) => {
   try {
     const { email, password, name,} = req.body;
     console.log(req.body);
-    const avt =   gravatar.url(email);
+    const avt =   faker.image.imageUrl();
     const newUser = await User.create({
       email,
       password,
